@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/providers";
 import NextTopLoader from "nextjs-toploader";
+
+import { ThemeProvider } from "@/components/providers";
+
+import "./globals.css";
+import AppWalletProvider from "@/components/appWalletProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +23,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <NextTopLoader color="#fff" height={2} />
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+        <AppWalletProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+            {children}
+          </ThemeProvider>
+        </AppWalletProvider>
       </body>
     </html>
   );
