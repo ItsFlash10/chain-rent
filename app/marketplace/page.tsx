@@ -45,7 +45,7 @@ export default function Marketplace() {
 
         <section>
           <h2 className="mb-6 text-2xl font-semibold text-gray-800 dark:text-gray-200">Featured NFTs</h2>
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
             <AnimatePresence>
               {nfts.map((nft, index) => (
                 <NFTCard key={index} {...nft} />

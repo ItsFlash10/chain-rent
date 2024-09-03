@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 
-import { ThemeProvider } from "@/components/providers";
+import { Providers, ThemeProvider } from "@/components/providers";
 import AppWalletProvider from "@/components/appWalletProvider";
 
 import "./globals.css";
@@ -24,9 +24,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <NextTopLoader color="#fff" height={2} />
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <AppWalletProvider>{children}</AppWalletProvider>
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+            <AppWalletProvider>{children}</AppWalletProvider>
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

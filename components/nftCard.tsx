@@ -1,15 +1,24 @@
 import Image from "next/image";
+import { useState } from "react";
 
 import SolanaIcon from "@/public/solana.svg";
 
 import { Button } from "./ui/button";
 import { Card, CardHeader, CardContent, CardTitle, CardFooter } from "./ui/card";
 import { BackgroundGradient } from "./ui/background-gradient";
+import { generatePriceHistory } from "@/lib/utils";
+import NFTDialog from "./nftDialog";
 
 const NFTCard = ({ name, price, image }: { name: string; price: string | number; image: string }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const toggleDialog = () => {
+    setIsDialogOpen(!isDialogOpen);
+  };
+
   return (
     <BackgroundGradient className="cursor-pointer">
-      <Card className="overflow-hidden border-none">
+      <Card className="overflow-hidden border-none" onClick={toggleDialog}>
         <CardHeader className="overflow-hidden p-0">
           <img
             alt={name}
@@ -20,7 +29,7 @@ const NFTCard = ({ name, price, image }: { name: string; price: string | number;
         <CardContent className="p-4">
           <CardTitle className="text-lg text-gray-800 dark:text-gray-100">{name}</CardTitle>
         </CardContent>
-        <CardFooter className="flex items-center justify-between p-4 sm:gap-2">
+        <CardFooter className="flex flex-col items-start justify-between gap-4 px-4 md:flex-row md:items-center md:gap-2 md:p-4">
           <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
             <Image src={SolanaIcon} alt="My Icon" width={20} height={20} />
             {/* TODO: This causes a disparity in the price coz of the decimal places atm */}
@@ -34,6 +43,23 @@ const NFTCard = ({ name, price, image }: { name: string; price: string | number;
           </Button>
         </CardFooter>
       </Card>
+      {isDialogOpen && (
+        <NFTDialog
+          isOpen={isDialogOpen}
+          onClose={toggleDialog}
+          nft={{
+            name,
+            price: +price,
+            image,
+            owner: "ItsFlash10",
+            listPrice: +price,
+            floorPrice: 2,
+            floorDiff: "1",
+            topOffer: 3,
+            priceHistory: generatePriceHistory(+price),
+          }}
+        />
+      )}
     </BackgroundGradient>
   );
 };

@@ -69,7 +69,7 @@ export const NFT_DATA = [
     name: "Celestial NFT",
     price: 4.3,
     image:
-      "https://img.freepik.com/free-vector/glowing-virtual-nft-non-fungible-crypto-art-background_1017-41193.jpg?semt=ais_hybrid",
+      "https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149611030.jpg?semt=ais_hybrid",
   },
   {
     name: "Nova Ape",
@@ -137,12 +137,16 @@ export const NEW_NFT_DATA = [
   {
     name: "Quantum NFT",
     price: 0.75,
-    image: "https://img.freepik.com/free-photo/3d-rendering-financial-neon-bull_23-2151691933.jpg?semt=ais_hybrid",
+    // TODO: Check size issue with this image
+    // image: "https://img.freepik.com/free-photo/3d-rendering-financial-neon-bull_23-2151691933.jpg?semt=ais_hybrid",
+    image:
+      "https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149619508.jpg?semt=ais_hybrid",
   },
   {
     name: "Nebula Ape",
     price: 1.23,
-    image: "https://img.freepik.com/free-photo/cyberpunk-bitcoin-illustration_23-2151611167.jpg?semt=ais_hybrid",
+    image:
+      "https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149611057.jpg?semt=ais_hybrid",
   },
   {
     name: "Cosmic NFT",
@@ -178,6 +182,6 @@ export const NEW_NFT_DATA = [
     name: "Celestial NFT",
     price: 4.3,
     image:
-      "https://img.freepik.com/free-vector/glowing-virtual-nft-non-fungible-crypto-art-background_1017-41193.jpg?semt=ais_hybrid",
+      "https://img.freepik.com/premium-vector/vector-hand-drawn-nft-style-ape-illustration_1174912-11216.jpg?semt=ais_hybrid",
   },
 ];

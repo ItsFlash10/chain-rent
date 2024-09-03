@@ -1,14 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useRecoilState } from "recoil";
+
+import SolanaIcon from "@/public/solana.svg";
+import { getCurrentSolPrice } from "@/lib/actions/solana";
+import { solanaPrice } from "@/store";
 
 import ThemeToggle from "./themeToggle";
+import CustomWalletButton from "./customWalletButton";
 
 const AppBar = () => {
+  const [solanaCurrentPrice, setSolanaCurrentPrice] = useRecoilState(solanaPrice);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
@@ -19,8 +26,23 @@ const AppBar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const fetchSolanaPrice = async () => {
+    const price = await getCurrentSolPrice();
+    setSolanaCurrentPrice(price);
+  };
+
+  useEffect(() => {
+    fetchSolanaPrice();
+    const interval = setInterval(() => {
+      fetchSolanaPrice();
+    }, 1000 * 30);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-[100] border-b border-gray-200 shadow-lg backdrop-blur-lg dark:border-gray-700">
+    <header className="sticky top-0 z-20 border-b border-gray-200 shadow-lg backdrop-blur-lg dark:border-gray-700">
       <div className="container mx-auto flex items-center justify-between px-4 py-4 sm:px-8">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -42,25 +64,15 @@ const AppBar = () => {
             ))}
           </ul>
           <ThemeToggle />
-          <WalletMultiButton
-            style={{
-              animation: "shimmer 1.5s infinite linear",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "0.375rem",
-              border: "1px solid #1e293b",
-              background: "linear-gradient(110deg, #09090b 45%, #1e2631 55%, #09090b)",
-              backgroundSize: "200% 100%",
-              paddingLeft: "1.5rem",
-              paddingRight: "1.5rem",
-              color: "#94a3b8",
-              transitionProperty: "color, background-color, border-color, text-decoration-color, fill, stroke",
-              transitionDuration: "150ms",
-              outline: "none",
-              marginLeft: "1rem",
-            }}
-          />
+          {solanaCurrentPrice && (
+            <div className="flex items-center gap-2">
+              <Image src={SolanaIcon} alt="My Icon" width={20} height={20} />
+              <p className="font-semibold">${solanaCurrentPrice}</p>
+            </div>
+          )}
+          <div className="ml-4 hidden md:block">
+            <CustomWalletButton />
+          </div>
           {/* Hamburger menu button */}
           <button
             className="ml-4 text-gray-600 hover:text-gray-900 focus:outline-none dark:text-gray-300 dark:hover:text-gray-100 md:hidden"
@@ -99,6 +111,14 @@ const AppBar = () => {
                     </a>
                   </motion.li>
                 ))}
+                <motion.li
+                  key={menuItems.length}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: menuItems.length * 0.1 }}
+                >
+                  <CustomWalletButton />
+                </motion.li>
               </ul>
             </nav>
           </motion.div>
