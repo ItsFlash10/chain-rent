@@ -29,8 +29,8 @@ const NFTCard = ({ name, price, image }: { name: string; price: string | number;
         <CardContent className="p-4">
           <CardTitle className="text-lg text-gray-800 dark:text-gray-100">{name}</CardTitle>
         </CardContent>
-        <CardFooter className="flex flex-col items-start justify-between gap-4 px-4 md:flex-row md:items-center md:gap-2 md:p-4">
-          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+        <CardFooter className="flex items-center justify-between gap-4 px-4">
+          <div className="flex items-center gap-2 text-base font-semibold text-gray-600 dark:text-gray-300 md:text-xs lg:text-base">
             <Image src={SolanaIcon} alt="My Icon" width={20} height={20} />
             {/* TODO: This causes a disparity in the price coz of the decimal places atm */}
             {Number.isInteger(Number(price)) ? price : Number(price).toFixed(1)} SOL
