@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useRecoilValue } from "recoil";
+import moment from "moment";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -40,11 +41,10 @@ const CustomTooltip = ({ active, payload }: any) => {
 
 const NFTDialog: React.FC<NFTDialogProps> = ({ isOpen, onClose, nft }) => {
   const currentSolanaPrice = useRecoilValue(solanaPrice);
-  console.log({ currentSolanaPrice });
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[425px] md:max-w-[700px]">
+      <DialogContent className="no-scrollbar max-h-[90vh] overflow-y-auto sm:max-w-[425px] md:max-w-[700px]">
         <DialogHeader>
           <DialogTitle className="text-xl sm:text-2xl">{nft.name}</DialogTitle>
           <DialogDescription className="text-sm sm:text-base">Owned by: {nft.owner}</DialogDescription>
@@ -89,16 +89,16 @@ const NFTDialog: React.FC<NFTDialogProps> = ({ isOpen, onClose, nft }) => {
           <h3 className="mb-2 text-base font-semibold sm:text-lg">Price History</h3>
           <div className="h-[200px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={nft.priceHistory} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
+              <LineChart data={nft.priceHistory} margin={{ top: 5, right: 5, left: -40, bottom: 5 }}>
                 <XAxis
                   dataKey="date"
                   tick={{ fontSize: 10 }}
-                  interval="preserveStartEnd"
-                  tickFormatter={(value) => value.split("-")[1]}
+                  tickFormatter={(value) => moment(value, "YYYY-MM-DD").format("MMM YY")}
+                  tickMargin={10}
                 />
                 <YAxis tick={{ fontSize: 10 }} />
                 <Tooltip content={<CustomTooltip />} />
-                <Line type="monotone" dataKey="price" stroke="#8884d8" strokeWidth={2} dot={false} />
+                <Line type="monotone" dataKey="price" stroke="#8884d8" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </div>
