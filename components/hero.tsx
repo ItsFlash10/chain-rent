@@ -58,7 +58,7 @@ const Hero = () => {
           duration: 1.2,
           ease: "easeInOut",
         }}
-        className="flex flex-col"
+        className="flex flex-col self-start"
       >
         <CustomWalletButton />
         <Link href={"/marketplace"} className="mt-5 flex items-center gap-2 self-start px-6">

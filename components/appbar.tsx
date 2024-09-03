@@ -91,9 +91,9 @@ const AppBar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-x-0 border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800 md:hidden"
+            className="absolute inset-x-0 border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-[#090909] md:hidden"
           >
-            <nav className="container mx-auto px-4 py-2">
+            <nav className="container mx-auto border border-t-0 px-4 py-2 dark:border-slate-800">
               <ul className="space-y-2">
                 {menuItems.map((item, index) => (
                   <motion.li
@@ -116,6 +116,7 @@ const AppBar = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: menuItems.length * 0.1 }}
+                  className="pb-2"
                 >
                   <CustomWalletButton />
                 </motion.li>

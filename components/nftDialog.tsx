@@ -44,56 +44,61 @@ const NFTDialog: React.FC<NFTDialogProps> = ({ isOpen, onClose, nft }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] md:max-w-[700px]">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[425px] md:max-w-[700px]">
         <DialogHeader>
-          <DialogTitle>{nft.name}</DialogTitle>
-          <DialogDescription>Owned by: {nft.owner}</DialogDescription>
+          <DialogTitle className="text-xl sm:text-2xl">{nft.name}</DialogTitle>
+          <DialogDescription className="text-sm sm:text-base">Owned by: {nft.owner}</DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4 md:grid-cols-2">
-          <div className="order-1 md:order-none">
+        <div className="grid gap-4 py-4 sm:grid-cols-2">
+          <div className="order-1 sm:order-none">
             <img src={nft.image} alt={nft.name} className="w-full rounded-lg" />
           </div>
           <div className="space-y-4">
             <div>
-              <h3 className="mb-2 text-lg font-semibold">Best Price</h3>
+              <h3 className="mb-2 text-base font-semibold sm:text-lg">Best Price</h3>
               <div className="flex items-center gap-2">
-                <Image src={SolanaIcon} alt="My Icon" width={20} height={20} />
-                <span className="text-2xl font-bold">{nft.price} SOL</span>
-                <span className="text-muted-foreground ml-2 text-sm">
+                <Image src={SolanaIcon} alt="Solana Icon" width={20} height={20} />
+                <span className="text-xl font-bold sm:text-2xl">{nft.price} SOL</span>
+                <span className="text-muted-foreground ml-2 text-xs sm:text-sm">
                   ${(nft.price * +currentSolanaPrice).toFixed(2)}
                 </span>
               </div>
             </div>
             <Button className="w-full">Rent/Buy Now</Button>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-muted rounded-lg p-3">
-                <h4 className="text-muted-foreground mb-1 text-sm">List Price</h4>
-                <p className="font-semibold">{nft.listPrice} SOL</p>
+            <div className="grid grid-cols-2 gap-2 sm:gap-4">
+              <div className="bg-muted rounded-lg p-2 sm:p-3">
+                <h4 className="text-muted-foreground mb-1 text-xs sm:text-sm">List Price</h4>
+                <p className="text-sm font-semibold sm:text-base">{nft.listPrice} SOL</p>
               </div>
-              <div className="bg-muted rounded-lg p-3">
-                <h4 className="text-muted-foreground mb-1 text-sm">Floor Price</h4>
-                <p className="font-semibold">{nft.floorPrice} SOL</p>
+              <div className="bg-muted rounded-lg p-2 sm:p-3">
+                <h4 className="text-muted-foreground mb-1 text-xs sm:text-sm">Floor Price</h4>
+                <p className="text-sm font-semibold sm:text-base">{nft.floorPrice} SOL</p>
               </div>
-              <div className="bg-muted rounded-lg p-3">
-                <h4 className="text-muted-foreground mb-1 text-sm">Floor Diff.</h4>
-                <p className="font-semibold">{nft.floorDiff}</p>
+              <div className="bg-muted rounded-lg p-2 sm:p-3">
+                <h4 className="text-muted-foreground mb-1 text-xs sm:text-sm">Floor Diff.</h4>
+                <p className="text-sm font-semibold sm:text-base">{nft.floorDiff}</p>
               </div>
-              <div className="bg-muted rounded-lg p-3">
-                <h4 className="text-muted-foreground mb-1 text-sm">Top Offer</h4>
-                <p className="font-semibold">{nft.topOffer} SOL</p>
+              <div className="bg-muted rounded-lg p-2 sm:p-3">
+                <h4 className="text-muted-foreground mb-1 text-xs sm:text-sm">Top Offer</h4>
+                <p className="text-sm font-semibold sm:text-base">{nft.topOffer} SOL</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="mt-6">
-          <h3 className="mb-2 text-lg font-semibold">Price History</h3>
+        <div className="mt-4 sm:mt-6">
+          <h3 className="mb-2 text-base font-semibold sm:text-lg">Price History</h3>
           <div className="h-[200px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={nft.priceHistory}>
-                <XAxis dataKey="date" />
-                <YAxis />
+              <LineChart data={nft.priceHistory} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
+                <XAxis
+                  dataKey="date"
+                  tick={{ fontSize: 10 }}
+                  interval="preserveStartEnd"
+                  tickFormatter={(value) => value.split("-")[1]}
+                />
+                <YAxis tick={{ fontSize: 10 }} />
                 <Tooltip content={<CustomTooltip />} />
-                <Line type="monotone" dataKey="price" stroke="#8884d8" />
+                <Line type="monotone" dataKey="price" stroke="#8884d8" strokeWidth={2} dot={false} />
               </LineChart>
             </ResponsiveContainer>
           </div>
