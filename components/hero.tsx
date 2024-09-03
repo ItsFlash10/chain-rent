@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import * as THREE from "three";
-import GLOBE from "vanta/src/vanta.globe";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { MoveRight } from "lucide-react";
+import { ChevronRightIcon } from "lucide-react";
+import * as THREE from "three";
 import Link from "next/link";
+import GLOBE from "vanta/src/vanta.globe";
 
 const Hero = () => {
   const [vantaEffect, setVantaEffect] = useState(0);
@@ -44,10 +44,10 @@ const Hero = () => {
           duration: 1,
           ease: "easeInOut",
         }}
-        className="mt-8 flex flex-col gap-4 bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text py-4 text-4xl font-medium tracking-tight text-transparent md:text-6xl"
+        className="flex flex-col gap-4 bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text py-4 text-4xl font-medium tracking-tight text-transparent md:text-6xl"
       >
-        <div>ChainRent</div>
-        <div>Where NFTs Work for You</div>
+        <p>ChainRent</p>
+        <p>Where NFTs Work for You</p>
       </motion.p>
       <motion.div
         initial={{ opacity: 0, y: 100 }}
@@ -57,10 +57,8 @@ const Hero = () => {
           duration: 1.2,
           ease: "easeInOut",
         }}
+        className="flex flex-col"
       >
-        {/* <button className="animate-shimmer mt-5 inline-flex h-16 items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#09090b,45%,#1e2631,55%,#09090b)] bg-[length:200%_100%] px-6 text-xl font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-          Connect your wallet
-        </button> */}
         <WalletMultiButton
           style={{
             animation: "shimmer 1.5s infinite linear",
@@ -82,12 +80,12 @@ const Hero = () => {
             outline: "none",
           }}
         />
-        {/* <div className="mt-10 flex flex-col gap-2">
-          Added check to show this arrow only when logged in:
-          <Link href={"/marketplace"} className="cursor-pointer self-start py-5 pr-5">
-            <MoveRight />
-          </Link>
-        </div> */}
+        <Link href={"/marketplace"} className="mt-5 flex items-center gap-2 self-start px-6">
+          <p className="text-md bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text text-transparent">
+            Discover
+          </p>
+          <ChevronRightIcon color="#475569" />
+        </Link>
       </motion.div>
     </main>
   );

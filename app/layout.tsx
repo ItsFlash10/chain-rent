@@ -3,15 +3,16 @@ import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 
 import { ThemeProvider } from "@/components/providers";
+import AppWalletProvider from "@/components/appWalletProvider";
 
 import "./globals.css";
-import AppWalletProvider from "@/components/appWalletProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "ChainRent",
   description: "ChainRent: Where NFTs Work for You",
+  icons: "/logo.svg",
 };
 
 export default function RootLayout({
@@ -23,11 +24,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <NextTopLoader color="#fff" height={2} />
-        <AppWalletProvider>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-            {children}
-          </ThemeProvider>
-        </AppWalletProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <AppWalletProvider>{children}</AppWalletProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
